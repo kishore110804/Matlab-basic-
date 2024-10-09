@@ -1,0 +1,51 @@
+f = 5;
+Fs = 150;
+T = 1/Fs;
+t1 = 0:T:0.3;
+t2 = 0.3:T:0.66;
+t3 = 0.66:T:1;
+t= [t1 t2 t3];
+x1 = sin(2*pi*5*t1);
+x2=  sin(2*pi*10*t2);
+x3= sin(2*pi*20*t3);
+x=[x1 x2 x3];
+N = length(x);
+X = fft(x, N);
+frequencies = linspace(0, Fs, N);
+
+figure;
+subplot(4, 1, 1);
+plot(t, x,'LineWidth',1);
+xlim([0 1]);
+ylim([-1 1]);
+title('x(t)');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+grid on;
+
+subplot(4, 1, 2);
+stem(t, x,'filled',LineWidth=1);
+xlim([0 1]);
+ylim([-1 1]);
+title('x(n)');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+grid on;
+
+subplot(4, 1, 3);
+stem(frequencies,abs(X),'filled',LineWidth=1);
+xlim([0 150]);
+ylim([0 30]);
+title('Magnitude Spectrum');
+xlabel('Frequency (Hz)');
+ylabel('|X(f)|');
+grid on;
+
+subplot(4, 1, 4);
+stem(frequencies, angle(X),'filled',LineWidth=1);
+xlim([0 150]);
+ylim([-5 5]);
+title('Phase Spectrum');
+xlabel('Frequency (Hz)');
+ylabel('Phase (radians)');
+grid on;

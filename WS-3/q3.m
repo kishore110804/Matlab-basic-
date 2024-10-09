@@ -1,0 +1,44 @@
+t = 0:0.01:1;
+fs = 200;
+x = sin(2*pi*5*t) +sin(2*pi*10*t) +sin(2*pi*20*t);
+ts = 1/fs; 
+t2 = 0:ts:1;
+x1 = sin(2*pi*5*t2)+sin(2*pi*10*t2)+sin(2*pi*20*t2);
+n = 0:length(x1)-1;
+figure;
+subplot(4,1,1);
+plot(t, x,'LineWidth',1.5);
+xlim([0 1]); 
+ylim([-5 5]);  
+title('x(t)');
+xlabel('Time (s)');
+ylabel('Amplitude');
+grid on;
+
+subplot(4,1,2);
+stem(n, x1,'filled','LineWidth',1.5);
+xlim([0 200]); 
+ylim([-5 5]);  
+xlabel('Sample Index (n)');
+ylabel('Amplitude');
+title('Discrete Signal x[n]');
+grid on;
+X = fft(x1);
+subplot(4,1,3);
+stem(abs(X),'filled','LineWidth',1.5);
+xlim([0 200]);
+ylim([0 150]); 
+xlabel('Frequency (k)');
+ylabel('|X(k)|');
+title('Magnitude Response');
+grid on;
+
+subplot(4,1,4);
+stem(angle(X),'filled','LineWidth',1.5); 
+xlim([0 200]);
+ylim([-5 5]);  
+xlabel('Frequency (k)');
+ylabel('Phase (radians)');
+title('Phase Spectrum');
+grid on;
+
